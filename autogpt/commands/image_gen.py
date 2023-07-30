@@ -1,4 +1,8 @@
-""" Image Generation Module for AutoGPT."""
+"""Commands to generate images based on text input"""
+
+COMMAND_CATEGORY = "text_to_image"
+COMMAND_CATEGORY_TITLE = "Text to Image"
+
 import io
 import json
 import time
@@ -37,7 +41,7 @@ def generate_image(prompt: str, agent: Agent, size: int = 256) -> str:
     Returns:
         str: The filename of the image
     """
-    filename = f"{agent.config.workspace_path}/{str(uuid.uuid4())}.jpg"
+    filename = agent.config.workspace_path / f"{str(uuid.uuid4())}.jpg"
 
     # DALL-E
     if agent.config.image_provider == "dalle":

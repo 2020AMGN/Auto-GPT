@@ -8,8 +8,8 @@ from unittest.mock import patch
 
 import pytest
 
+from autogpt.app.configurator import GPT_3_MODEL, GPT_4_MODEL, create_config
 from autogpt.config import Config, ConfigBuilder
-from autogpt.configurator import GPT_3_MODEL, GPT_4_MODEL, create_config
 from autogpt.workspace.workspace import Workspace
 
 
@@ -21,7 +21,7 @@ def test_initial_values(config: Config):
     assert config.continuous_mode == False
     assert config.speak_mode == False
     assert config.fast_llm == "gpt-3.5-turbo"
-    assert config.smart_llm == "gpt-4"
+    assert config.smart_llm == "gpt-4-0314"
 
 
 def test_set_continuous_mode(config: Config):
@@ -161,7 +161,7 @@ azure_model_map:
 
     os.environ["USE_AZURE"] = "True"
     os.environ["AZURE_CONFIG_FILE"] = str(config_file)
-    config = ConfigBuilder.build_config_from_env()
+    config = ConfigBuilder.build_config_from_env(workspace.root.parent)
 
     assert config.openai_api_type == "azure"
     assert config.openai_api_base == "https://dummy.openai.azure.com"
